@@ -20,8 +20,8 @@ Uint32 PushUpdateEvent(Uint32 interval, void *param) {
 }
 
 SFError InitGraphics() {
-  Uint32 width = 640;
-  Uint32 height = 480;
+  Uint32 width = 700;  
+  Uint32 height = 700;
   Uint32 colour_depth = 16; // in bits
   Uint32 delay = 1000/60; // in milliseconds
   
@@ -38,7 +38,7 @@ SFError InitGraphics() {
     throw SF_ERROR_VIDEOMODE;
   }
 
-  SDL_WM_SetCaption("Starship Fontana", "Starship Fontana");
+  SDL_WM_SetCaption("Pacman Adventures", "Pacman Adventures");
 
   return SF_ERROR_NONE;
 }

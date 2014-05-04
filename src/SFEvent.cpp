@@ -11,16 +11,35 @@ SFEvent::SFEvent(const SDL_Event & event) {
   case SDL_USEREVENT:
     code = SFEVENT_UPDATE;
     break;
+  case SDL_KEYUP:
+    switch (event.key.keysym.sym) {
+    case SDLK_LEFT:
+      code = SFEVENT_PLAYER_LEFT_KEYUP;
+      break;
+    case SDLK_RIGHT:
+      code = SFEVENT_PLAYER_RIGHT_KEYUP;
+      break;
+    case SDLK_UP:
+      code = SFEVENT_PLAYER_UP_KEYUP;
+      break;
+    case SDLK_DOWN:
+      code = SFEVENT_PLAYER_DOWN_KEYUP;
+      break;
+    }
+    break;
   case SDL_KEYDOWN:
     switch (event.key.keysym.sym) {
     case SDLK_LEFT:
-      code = SFEVENT_PLAYER_LEFT;
+      code = SFEVENT_PLAYER_LEFT_KEYDOWN;
       break;
     case SDLK_RIGHT:
-      code = SFEVENT_PLAYER_RIGHT;
+      code = SFEVENT_PLAYER_RIGHT_KEYDOWN;
       break;
-    case SDLK_SPACE:
-      code = SFEVENT_FIRE;
+    case SDLK_UP:
+      code = SFEVENT_PLAYER_UP_KEYDOWN;
+      break;
+    case SDLK_DOWN:
+      code = SFEVENT_PLAYER_DOWN_KEYDOWN;
       break;
     case SDLK_q:
       code = SFEVENT_QUIT;
@@ -33,7 +52,8 @@ SFEvent::SFEvent(const SDL_Event & event) {
   }
 }
 
-
 SFEVENT SFEvent::GetCode() {
   return code;
 }
+
+

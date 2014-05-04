@@ -26,16 +26,18 @@ public:
   void    OnUpdateWorld();
   void    OnRender();
 
-  void    FireProjectile();
+  void    cherryPos();
 private:
+  int count;
+
   SDL_Surface           * surface;
   bool                    is_running;
 
   shared_ptr<SFAsset>        player;
   shared_ptr<SFBoundingBox>  app_box;
-  list<shared_ptr<SFAsset> > projectiles;
-  list<shared_ptr<SFAsset> > aliens;
-  list<shared_ptr<SFAsset> > coins;
+  list<shared_ptr<SFAsset> > cherry;
+  list<shared_ptr<SFAsset> > walls;
+  list<shared_ptr<SFAsset> > foods;
 
   int fire;
 

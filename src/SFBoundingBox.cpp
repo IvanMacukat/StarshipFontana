@@ -4,8 +4,8 @@ SFBoundingBox::SFBoundingBox(const Vector2 centre,
 			     const int width,
 			     const int height) :
   centre(make_shared<Vector2>(centre)),
-  extent_x(make_shared<Vector2>(Vector2((float) width/2.0, 0))),
-  extent_y(make_shared<Vector2>(Vector2(0, (float) height/2.0))) {
+  extent_x(make_shared<Vector2>(Vector2(width/2, 0))),
+  extent_y(make_shared<Vector2>(Vector2(0, height/2))) {
 }
 
 SFBoundingBox::~SFBoundingBox() {
@@ -19,10 +19,8 @@ void SFBoundingBox::SetCentre(Vector2 & v) {
 }
 
 bool straddles(const pair<float, float> & a, const pair<float, float> & b) {
-  return (a.first >= b.first && a.first <= b.second)  // a1 intersects b
-    || (a.second >= b.first && a.second <= b.second)  // a2 intersects b
-    || (b.first >= a.first && b.first <= a.second)    // b1 intersects a
-    || (b.second >= a.first && b.second <= a.second); // b2 intersects a
+  return (a.first >= b.first && a.first <= b.second)
+    || (a.second >= b.first && a.second <= b.second);
 }
 
 pair<float,float> SFBoundingBox::projectOntoAxis(const SFBoundingBox & b, enum AXIS axis) {

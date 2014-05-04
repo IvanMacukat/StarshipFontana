@@ -7,18 +7,23 @@ SFAsset::SFAsset(SFASSETTYPE type) {
   this->id   = ++SFASSETID;
   SDL_Surface * tmp_surf;
 
+  movingLeft = false;
+	movingRight = false;
+	movingUp = false;
+	movingDown = false;
+
   switch (type) {
   case SFASSET_PLAYER:
-    tmp_surf = IMG_Load("assets/player.png");
+    tmp_surf = IMG_Load("../assets/pacman.png");
     break;
-  case SFASSET_PROJECTILE:
-    tmp_surf = IMG_Load("assets/projectile.png");
+  case SFASSET_CHERRY:
+    tmp_surf = IMG_Load("../assets/cherry.png");
     break;
-  case SFASSET_ALIEN:
-    tmp_surf = IMG_Load("assets/alien.png");
+  case SFASSET_WALL:
+    tmp_surf = IMG_Load("../assets/wall.png");
     break;
-  case SFASSET_COIN:
-    tmp_surf = IMG_Load("assets/coin.png");
+  case SFASSET_FOOD:
+    tmp_surf = IMG_Load("../assets/food.png");
     break;
   }
 
@@ -107,9 +112,19 @@ void SFAsset::GoEast() {
 }
 
 void SFAsset::GoNorth() {
-  Vector2 c = *(bbox->centre) + Vector2(0.0f, 1.0f);
-  bbox->centre.reset();
-  bbox->centre = make_shared<Vector2>(c);
+  Vector2 c = *(bbox->centre) + Vector2(0.0f, 5.0f);
+  if(!(c.getY() < 0)) {
+    bbox->centre.reset();
+    bbox->centre = make_shared<Vector2>(c);
+  }
+}
+
+void SFAsset::GoSouth() {
+  Vector2 c = *(bbox->centre) + Vector2(0.0f, -5.0f);
+  if(!(c.getY() > SDL_GetVideoSurface()->h)) {
+    bbox->centre.reset();
+    bbox->centre = make_shared<Vector2>(c);
+  }
 }
 
 bool SFAsset::CollidesWith(shared_ptr<SFAsset> other) {
@@ -129,7 +144,5 @@ bool SFAsset::IsAlive() {
 }
 
 void SFAsset::HandleCollision() {
-  if(SFASSET_PROJECTILE == type || SFASSET_ALIEN == type) {
-    SetNotAlive();
-  }
+  SetNotAlive();
 }
